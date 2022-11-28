@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .thin-scrollbar-y::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  .thin-scrollbar-y::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .thin-scrollbar-y::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+  }
+
+  .thin-scrollbar-x::-webkit-scrollbar {
+    height: 0.5rem;
+  }
+  .thin-scrollbar-x::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .thin-scrollbar-x::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+  }
+
+  /* number input without spin */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield; /* Firefox */
+  }
+}
