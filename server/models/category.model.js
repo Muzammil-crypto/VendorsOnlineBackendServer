@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 /**
  * @typedef Category
  * @property {string} _id
@@ -28,5 +27,5 @@ const CategorySchema = new Schema({
 });
 
 // export the new Schema so we could modify it using Node.js
-Category = mongoose.model('Category', CategorySchema);
+Category = mongoose.model("Category", CategorySchema);
 module.exports = Category;
