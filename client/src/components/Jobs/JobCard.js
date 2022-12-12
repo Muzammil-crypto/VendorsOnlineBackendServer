@@ -1,7 +1,7 @@
-import Rating from '../Utils/Rating';
-import currencyFormatter from '../../utils/currencyFormatter';
-import { useNavigate } from 'react-router-dom';
-import dayjs from 'dayjs';
+import Rating from "../Utils/Rating";
+import currencyFormatter from "../../utils/currencyFormatter";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 const JobCard = ({ job }) => {
   const navigate = useNavigate();
@@ -9,9 +9,9 @@ const JobCard = ({ job }) => {
   return (
     <div
       className={`relative w-full cursor-pointer border border-b-4 border-gray-200 ${
-        job.status === 'active' || job.status === 'cancelled'
-          ? 'border-b-primary-500'
-          : 'border-b-blue-500'
+        job.status === "active" || job.status === "cancelled"
+          ? "border-b-primary-500"
+          : "border-b-blue-500"
       }  shadow`}
       onClick={() => navigate(`/jobs/${job._id}`)}
     >
@@ -21,7 +21,7 @@ const JobCard = ({ job }) => {
           <img
             className="absolute inset-0 h-full w-full object-cover"
             src={job.images[0]}
-            alt={job.title + ' image'}
+            alt={job.title + " image"}
           />
         ) : (
           <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-center text-2xl text-slate-400">
