@@ -1,7 +1,7 @@
-const fs = require('fs');
+const fs = require("fs");
 
-const uploadFiles = (files, directory = 'others') => {
-  if (files.length && files.length > 0) {
+const uploadFiles = (files, directory = "others") => {
+  if (files?.length && files?.length > 0) {
     const paths = [];
 
     files.map(async (file) => {
@@ -24,7 +24,7 @@ const uploadFiles = (files, directory = 'others') => {
     return paths;
   } else {
     const dir = `/public/uploads/${directory}/`;
-    const path = dir + Date.now() + files.name;
+    const path = dir + Date.now() + files?.name;
 
     if (!fs.existsSync(process.cwd() + dir)) {
       fs.mkdirSync(process.cwd() + dir, {
@@ -32,7 +32,7 @@ const uploadFiles = (files, directory = 'others') => {
       });
     }
 
-    files.mv(process.cwd() + path, function (err) {
+    files?.mv(process.cwd() + path, function (err) {
       if (err) throw err;
     });
 

@@ -1,15 +1,15 @@
-const Job = require('../models/job.model');
-const Review = require('../models/review.model');
-const uploadFiles = require('../utils/uploadFiles');
+const Job = require("../models/job.model");
+const Review = require("../models/review.model");
+const uploadFiles = require("../utils/uploadFiles");
 
 const Status = {
-  Active: 'active',
-  Inactive: 'inactive',
-  Assigned: 'assigned',
-  Completed: 'completed',
-  Canceled: 'cancelled',
-  Closed: 'closed',
-  Deleted: 'deleted',
+  Active: "active",
+  Inactive: "inactive",
+  Assigned: "assigned",
+  Completed: "completed",
+  Canceled: "cancelled",
+  Closed: "closed",
+  Deleted: "deleted",
 };
 
 class JobController {
@@ -18,11 +18,11 @@ class JobController {
       const { page, limit, status, search, createdBy } = req.query;
 
       const jobsQuery = Job.find({
-        status: status ? { $in: status.split(',') } : { $ne: 'deleted' },
+        status: status ? { $in: status.split(",") } : { $ne: "deleted" },
       })
-        .populate('category')
-        .populate('createdBy')
-        .populate('assignedTo')
+        .populate("category")
+        .populate("createdBy")
+        .populate("assignedTo")
         .sort({ createdAt: -1 });
 
       if (page && limit) {
@@ -32,9 +32,9 @@ class JobController {
       if (search) {
         jobsQuery.find({
           $or: [
-            { title: { $regex: search, $options: 'i' } },
-            { description: { $regex: search, $options: 'i' } },
-            { location: { $regex: search, $options: 'i' } },
+            { title: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } },
           ],
         });
       }
@@ -71,7 +71,7 @@ class JobController {
     } catch (error) {
       console.log(error);
       return res.status(500).json({
-        message: 'Internal server error',
+        message: "Internal server error",
       });
     }
   }
@@ -79,10 +79,10 @@ class JobController {
   static async getJobById(req, res) {
     try {
       const job = await Job.findById(req.params.id)
-        .populate('category')
-        .populate('createdBy')
-        .populate('assignedTo')
-        .populate('reviews');
+        .populate("category")
+        .populate("createdBy")
+        .populate("assignedTo")
+        .populate("reviews");
 
       // get all reviews of createdBy and put them in an array in createdBy
       const createdByReviews = await Review.find({
@@ -103,14 +103,14 @@ class JobController {
     } catch (error) {
       console.log(error);
       return res.status(500).json({
-        message: 'Internal server error',
+        message: "Internal server error",
       });
     }
   }
 
   static async createJob(req, res) {
     try {
-      const images = req.files.images;
+      const images = req?.files?.images;
 
       const imagePaths = uploadFiles(images, `jobs/${req.user._id}`);
       req.body.images = imagePaths;
@@ -119,13 +119,13 @@ class JobController {
       const job = await Job.create(req.body);
 
       return res.status(201).json({
-        message: 'GIG created!',
+        message: "GIG created!",
         data: job.toJSON(),
       });
     } catch (error) {
       console.log(error);
       return res.status(500).json({
-        message: 'Internal server error',
+        message: "Internal server error",
       });
     }
   }
@@ -140,7 +140,7 @@ class JobController {
 
       if (!oldJob) {
         return res.status(401).json({
-          message: 'Unauthorized',
+          message: "Unauthorized",
         });
       }
 
@@ -150,13 +150,13 @@ class JobController {
       if (jobUpdate.status === Status.Inactive) {
         if (oldJob.status === Status.Assigned) {
           return res.status(400).json({
-            message: 'Job is already assigned',
+            message: "Job is already assigned",
           });
         }
       } else if (jobUpdate.status === Status.Assigned) {
         if (oldJob.status === Status.Assigned) {
           return res.status(400).json({
-            message: 'GIG is already assigned',
+            message: "GIG is already assigned",
           });
         }
 
@@ -164,22 +164,22 @@ class JobController {
       } else if (jobUpdate.status === Status.Completed) {
         if (oldJob.status === Status.Completed) {
           return res.status(400).json({
-            message: 'GIG is already completed',
+            message: "GIG is already completed",
           });
         }
         if (oldJob.status !== Status.Assigned) {
           return res.status(400).json({
-            message: 'GIG is not assigned',
+            message: "GIG is not assigned",
           });
         }
         if (oldJob.status === Status.Canceled) {
           return res.status(400).json({
-            message: 'GIG is already canceled',
+            message: "GIG is already canceled",
           });
         }
         if (oldJob.status === Status.Deleted) {
           return res.status(400).json({
-            message: 'GIG is already deleted',
+            message: "GIG is already deleted",
           });
         }
 
@@ -187,17 +187,17 @@ class JobController {
       } else if (jobUpdate.status === Status.Canceled) {
         if (oldJob.status === Status.Canceled) {
           return res.status(400).json({
-            message: 'GIG is already canceled',
+            message: "GIG is already canceled",
           });
         }
         if (oldJob.status !== Status.Assigned) {
           return res.status(400).json({
-            message: 'GIG is not assigned',
+            message: "GIG is not assigned",
           });
         }
         if (oldJob.status === Status.Completed) {
           return res.status(400).json({
-            message: 'GIG is already completed',
+            message: "GIG is already completed",
           });
         }
 
@@ -206,7 +206,7 @@ class JobController {
       } else if (jobUpdate.status === Status.Deleted) {
         if (oldJob.status === Status.Deleted) {
           return res.status(400).json({
-            message: 'GIG is already deleted',
+            message: "GIG is already deleted",
           });
         }
 
@@ -216,19 +216,19 @@ class JobController {
       const job = await Job.findByIdAndUpdate(req.params.id, jobUpdate, {
         new: true,
       })
-        .populate('category')
-        .populate('createdBy')
-        .populate('assignedTo')
-        .populate('reviews');
+        .populate("category")
+        .populate("createdBy")
+        .populate("assignedTo")
+        .populate("reviews");
 
       return res.status(200).json({
-        message: 'GIG updated!',
+        message: "GIG updated!",
         data: job.toJSON(),
       });
     } catch (error) {
       console.log(error);
       return res.status(500).json({
-        message: 'Internal server error',
+        message: "Internal server error",
       });
     }
   }
@@ -246,13 +246,13 @@ class JobController {
       });
 
       return res.status(200).json({
-        message: 'GIG deleted!',
+        message: "GIG deleted!",
         data: job.toJSON(),
       });
     } catch (error) {
       console.log(error);
       return res.status(500).json({
-        message: 'Internal server error',
+        message: "Internal server error",
       });
     }
   }
@@ -261,11 +261,11 @@ class JobController {
     try {
       const { rating, comment } = req.body;
 
-      const job = await Job.findById(req.params.id).populate('reviews');
+      const job = await Job.findById(req.params.id).populate("reviews");
 
       if (!job) {
         return res.status(404).json({
-          message: 'GIG not found',
+          message: "GIG not found",
         });
       }
 
@@ -282,7 +282,7 @@ class JobController {
         )
       ) {
         return res.status(400).json({
-          message: 'Review already exists',
+          message: "Review already exists",
         });
       }
 
@@ -302,13 +302,13 @@ class JobController {
       await job.save();
 
       return res.status(201).json({
-        message: 'Review sent!',
+        message: "Review sent!",
         data: review.toJSON(),
       });
     } catch (error) {
       console.log(error);
       return res.status(500).json({
-        message: 'Internal server error',
+        message: "Internal server error",
       });
     }
   }
