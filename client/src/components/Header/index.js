@@ -36,6 +36,20 @@ const Header = () => {
             </li>
             <li>
               <Link
+                to="/jobs"
+                className={`
+                mt-1 border-b-[3px] pb-0.5 transition
+              ${
+                activePage === "jobs"
+                  ? "border-primary-500"
+                  : "border-transparent"
+              }`}
+              >
+                Find Shops
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/post-job"
                 className={`
                 mt-1 border-b-[3px] pb-0.5 transition
@@ -48,20 +62,7 @@ const Header = () => {
                 Post Shop
               </Link>
             </li>
-            <li>
-              <Link
-                to="/post-shop"
-                className={`
-                mt-1 border-b-[3px] pb-0.5 transition
-              ${
-                activePage === "post-shop"
-                  ? "border-primary-500"
-                  : "border-transparent"
-              }`}
-              >
-                Post Jobs
-              </Link>
-            </li>
+
             <li>
               <Link
                 to="/shops"
@@ -78,16 +79,16 @@ const Header = () => {
             </li>
             <li>
               <Link
-                to="/jobs"
+                to="/post-shop"
                 className={`
                 mt-1 border-b-[3px] pb-0.5 transition
               ${
-                activePage === "jobs"
+                activePage === "post-shop"
                   ? "border-primary-500"
                   : "border-transparent"
               }`}
               >
-                Find Shops
+                Post Jobs
               </Link>
             </li>
           </ul>

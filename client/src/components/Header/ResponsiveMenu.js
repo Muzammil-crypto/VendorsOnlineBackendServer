@@ -39,7 +39,20 @@ const ResponsiveMenu = ({ setIsLoginModalOpen, setIsSignupModalOpen }) => {
                 Home
               </Link>
             </Menu.Item>
-
+            <Menu.Item>
+              <Link
+                to="/jobs"
+                className={`
+                my-1 w-full border-l-[3px] pl-3 transition
+              ${
+                activePage === "jobs"
+                  ? "border-primary-500"
+                  : "border-transparent"
+              }`}
+              >
+                Find Shops
+              </Link>
+            </Menu.Item>
             <Menu.Item>
               <Link
                 to="/post-job"
@@ -54,20 +67,7 @@ const ResponsiveMenu = ({ setIsLoginModalOpen, setIsSignupModalOpen }) => {
                 Post Shops
               </Link>
             </Menu.Item>
-            <Menu.Item>
-              <Link
-                to="/post-shops"
-                className={`
-                my-1 w-full border-l-[3px] pl-3 transition
-              ${
-                activePage === "post-shop"
-                  ? "border-primary-500"
-                  : "border-transparent"
-              }`}
-              >
-                Post Jobs
-              </Link>
-            </Menu.Item>
+
             <Menu.Item>
               <Link
                 to="/shops"
@@ -84,16 +84,16 @@ const ResponsiveMenu = ({ setIsLoginModalOpen, setIsSignupModalOpen }) => {
             </Menu.Item>
             <Menu.Item>
               <Link
-                to="/jobs"
+                to="/post-shops"
                 className={`
                 my-1 w-full border-l-[3px] pl-3 transition
               ${
-                activePage === "jobs"
+                activePage === "post-shop"
                   ? "border-primary-500"
                   : "border-transparent"
               }`}
               >
-                Find Shops
+                Post Jobs
               </Link>
             </Menu.Item>
           </div>
