@@ -75,7 +75,38 @@ class JobController {
       });
     }
   }
+  static async findJobByType(req, res) {
+    try {
+      const job = await Job.find({ type: req.params.type })
+        .populate("category")
+        .populate("createdBy")
+        .populate("assignedTo")
+        .populate("reviews");
+      console.log({ job, type: req.params.type });
 
+      // get all reviews of createdBy and put them in an array in createdBy
+      // const createdByReviews = await Review.find({
+      //   reviewedTo: job.createdBy,
+      // });
+
+      // const jobWithReviews = {
+      //   ...job.toJSON(),
+      //   createdBy: {
+      //     ...job.createdBy.toJSON(),
+      //     reviews: createdByReviews,
+      //   },
+      // };
+
+      return res.status(200).json({
+        data: job,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        message: "Internal server error",
+      });
+    }
+  }
   static async getJobById(req, res) {
     try {
       const job = await Job.findById(req.params.id)
@@ -107,9 +138,11 @@ class JobController {
       });
     }
   }
-
+  //////////////////////////////////////////////////////
   static async createJob(req, res) {
     try {
+      console.log("Conteoller lIne 144 " + req.body);
+      console.log(req.body);
       const images = req?.files?.images;
 
       const imagePaths = uploadFiles(images, `jobs/${req.user._id}`);
@@ -129,6 +162,7 @@ class JobController {
       });
     }
   }
+  ////////////////////////////////////////////////
 
   static async updateJob(req, res) {
     try {

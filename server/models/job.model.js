@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 /**
  * @typedef Job
@@ -31,14 +31,18 @@ const mongoose = require('mongoose');
 
 const JobSchema = new mongoose.Schema(
   {
+    type: {
+      type: String,
+      // required: true,
+    },
     title: {
       type: String,
-      required: true,
+      // required: true,
     },
     description: {
       type: String,
-      required: true,
-      minlength: 100,
+      // required: true,
+      // minlength: 100,
     },
     company: {
       type: String,
@@ -46,47 +50,47 @@ const JobSchema = new mongoose.Schema(
     location: {
       lat: {
         type: Number,
-        required: true,
+        // required: true,
       },
       lng: {
         type: Number,
-        required: true,
+        // required: true,
       },
       address: {
         type: String,
-        required: true,
+        // required: true,
       },
     },
     budget: {
       type: String,
-      required: true,
+      // required: true,
     },
     status: {
       type: String,
-      required: true,
+      // required: true,
       enum: [
-        'active',
-        'inactive',
-        'assigned',
-        'completed',
-        'cancelled',
-        'closed',
-        'deleted',
+        "active",
+        "inactive",
+        "assigned",
+        "completed",
+        "cancelled",
+        "closed",
+        "deleted",
       ],
-      default: 'active',
+      default: "active",
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
+      ref: "User",
+      // required: true,
     },
     assignedTo: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
+      ref: "Category",
     },
     images: {
       type: Array,
@@ -107,7 +111,7 @@ const JobSchema = new mongoose.Schema(
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Review',
+        ref: "Review",
       },
     ],
   },
@@ -137,5 +141,5 @@ JobSchema.methods.toJSON = function () {
   return jobObject;
 };
 
-const Job = mongoose.model('Job', JobSchema);
+const Job = mongoose.model("Job", JobSchema);
 module.exports = Job;
