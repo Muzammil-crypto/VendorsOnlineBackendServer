@@ -1,20 +1,21 @@
-import JobsList from '../components/Jobs/JobsList';
-import Map from '../components/Jobs/Map';
-import SearchBar from '../components/Jobs/SearchBar';
-import { useQuery } from 'react-query';
-import { JobAPI } from '../api';
-import useQueryParams from '../hooks/useQueryParams';
+import JobsList from "../components/Jobs/JobsList";
+import Map from "../components/Jobs/Map";
+import SearchBar from "../components/Jobs/SearchBar";
+import { useQuery } from "react-query";
+import { JobAPI } from "../api";
+import useQueryParams from "../hooks/useQueryParams";
+import React, { useState, useEffect } from "react";
 
 const Jobs = () => {
-  const [searchParams] = useQueryParams();
-  const { data: jobs, isLoading } = useQuery(
-    searchParams?.q ? ['jobs', { search: searchParams.q }] : 'jobs',
-    () =>
-      JobAPI.getJobs({
-        search: searchParams.q,
-        status: 'active,cancelled,assigned',
-      })
-  );
+  const [jobs, setJobs] = useState([]);
+  useEffect(() => {
+    ApiCall();
+  }, []);
+  const ApiCall = async () => {
+    const data = await JobAPI.getJobType("job");
+    console.log(data);
+    setJobs(data);
+  };
 
   return (
     <>
@@ -25,7 +26,7 @@ const Jobs = () => {
           <Map jobs={jobs} />
         </div>
         <div className="order-1 md:order-2">
-          <JobsList jobs={jobs} isLoading={isLoading} />
+          <JobsList jobs={jobs} isLoading={false} />
         </div>
       </main>
     </>

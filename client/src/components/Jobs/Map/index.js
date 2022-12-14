@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import GoogleMapReact from 'google-map-react';
-import { LocationMarkerIcon } from '@heroicons/react/solid';
-import JobMarker from './JobMarker';
+import { useState, useEffect } from "react";
+import GoogleMapReact from "google-map-react";
+import { LocationMarkerIcon } from "@heroicons/react/solid";
+import JobMarker from "./JobMarker";
 
 const Map = ({ jobs }) => {
   const [center, setCenter] = useState();
@@ -36,10 +36,10 @@ const Map = ({ jobs }) => {
       />
       {jobs?.map((job) => (
         <JobMarker
-          key={job._id}
+          key={job?._id}
           job={job}
-          lat={job.location.lat}
-          lng={job.location.lng}
+          lat={job?.location?.lat}
+          lng={job?.location?.lng}
         />
       ))}
     </GoogleMapReact>

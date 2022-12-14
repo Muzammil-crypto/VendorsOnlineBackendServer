@@ -1,17 +1,19 @@
-import { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import BarLoader from 'react-bar-loader';
-import ProtectedRoute from './ProtectedRoute';
+import { Suspense, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+import BarLoader from "react-bar-loader";
+import ProtectedRoute from "./ProtectedRoute";
+import Shops from "../screens/shops";
+import PostShop from "../screens/PostShop";
 
-const Home = lazy(() => import('../screens/Home'));
-const Profile = lazy(() => import('../screens/Profile'));
-const PostJob = lazy(() => import('../screens/PostJob'));
-const Job = lazy(() => import('../screens/Job'));
-const Jobs = lazy(() => import('../screens/Jobs'));
-const Chats = lazy(() => import('../screens/Chats'));
-const PrivacyPolicy = lazy(() => import('../screens/PrivacyPolicy'));
-const TermsOfUse = lazy(() => import('../screens/TermsOfUse'));
-const Disclaimer = lazy(() => import('../screens/Disclaimer'));
+const Home = lazy(() => import("../screens/Home"));
+const Profile = lazy(() => import("../screens/Profile"));
+const PostJob = lazy(() => import("../screens/PostJob"));
+const Job = lazy(() => import("../screens/Job"));
+const Jobs = lazy(() => import("../screens/Jobs"));
+const Chats = lazy(() => import("../screens/Chats"));
+const PrivacyPolicy = lazy(() => import("../screens/PrivacyPolicy"));
+const TermsOfUse = lazy(() => import("../screens/TermsOfUse"));
+const Disclaimer = lazy(() => import("../screens/Disclaimer"));
 
 const Router = () => {
   return (
@@ -23,8 +25,11 @@ const Router = () => {
           element={<ProtectedRoute component={<Profile />} />}
         />
         <Route path="/post-job" element={<PostJob />} />
+        <Route path="/post-shop" element={<PostShop />} />
         <Route path="/jobs/:id" element={<Job />} />
         <Route path="/jobs" element={<Jobs />} />
+        <Route path="/shops" element={<Shops />} />
+
         <Route
           path="/chats"
           element={<ProtectedRoute component={<Chats />} />}

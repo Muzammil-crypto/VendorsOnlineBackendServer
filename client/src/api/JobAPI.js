@@ -1,22 +1,22 @@
-import BaseRoutes from './BaseRoutes';
+import BaseRoutes from "./BaseRoutes";
 
 const Status = {
-  Active: 'active',
-  Inactive: 'inactive',
-  Assigned: 'assigned',
-  Completed: 'completed',
-  Canceled: 'cancelled',
-  Closed: 'closed',
-  Deleted: 'deleted',
+  Active: "active",
+  Inactive: "inactive",
+  Assigned: "assigned",
+  Completed: "completed",
+  Canceled: "cancelled",
+  Closed: "closed",
+  Deleted: "deleted",
 };
 
 class JobAPI extends BaseRoutes {
   constructor() {
-    super('/jobs');
+    super("/jobs");
   }
 
   getJobs = async ({ search, createdBy, status } = {}) => {
-    let queryString = '';
+    let queryString = "";
     if (search || createdBy || status) {
       queryString = `?`;
     }
@@ -49,21 +49,37 @@ class JobAPI extends BaseRoutes {
 
     return res;
   };
+  getJobType = async (type) => {
+    const res = await this._get(`/type/${type}`);
+
+    return res;
+  };
 
   createJob = async (data) => {
-    const res = await this._post('/', data, {
+    const res = await this._post("/", data, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
 
     return res;
   };
 
+  // {
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //   }
+  // createShop = async (data) => {
+  //   const res = await this._post("/", data);
+
+  //   return res;
+  // };
+
   updateJob = async (id, data) => {
     const res = await this._put(`/${id}`, data, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
 

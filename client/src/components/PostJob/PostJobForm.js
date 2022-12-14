@@ -67,12 +67,17 @@ const PostJobForm = () => {
 
   const onSubmit = (values) => {
     const formData = new FormData();
+    formData.append("type", "job");
 
     formData.append("title", values.title);
     if (values.company) {
       formData.append("company", values.company);
     }
-    formData.append("location", JSON.stringify(values.location));
+    formData.append("location", {
+      lat: 31.467979194011804,
+      lng: 74.26523240244676,
+      address: "loading...",
+    });
     formData.append("budget", values.budget);
     formData.append("description", values.description);
     formData.append("category", values.category);
