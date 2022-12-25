@@ -53,13 +53,13 @@ class JobController {
         const job = jobs[i];
 
         const createdByReviews = await Review.find({
-          reviewedTo: job.createdBy._id,
+          reviewedTo: job?.createdBy?._id,
         });
 
         jobsWithReviews.push({
           ...job.toJSON(),
           createdBy: {
-            ...job.createdBy.toJSON(),
+            ...job?.createdBy?.toJSON(),
             reviews: createdByReviews,
           },
         });
