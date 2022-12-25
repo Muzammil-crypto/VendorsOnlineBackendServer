@@ -1,5 +1,5 @@
-const yup = require('yup');
-var ObjectId = require('mongoose').Types.ObjectId;
+const yup = require("yup");
+var ObjectId = require("mongoose").Types.ObjectId;
 
 class JobValidations {
   static getAllJobs() {
@@ -9,35 +9,27 @@ class JobValidations {
         limit: yup.number().integer().min(1).nullable(),
         status: yup
           .string()
-          // .oneOf([
-          //   'active',
-          //   'inactive',
-          //   'assigned',
-          //   'completed',
-          //   'cancelled',
-          //   'deleted',
-          // ])
-          // any of above with comma seperated
-          .test('statuses', 'Invalid status', (value) => {
+
+          .test("statuses", "Invalid status", (value) => {
             if (!value) return true;
 
             const statuses = [
-              'active',
-              'inactive',
-              'assigned',
-              'completed',
-              'cancelled',
-              'closed',
-              'deleted',
+              "active",
+              "inactive",
+              "assigned",
+              "completed",
+              "cancelled",
+              "closed",
+              "deleted",
             ];
 
-            return value.split(',').every((item) => statuses.includes(item));
+            return value.split(",").every((item) => statuses.includes(item));
           }),
         search: yup.string().nullable(),
         createdBy: yup
           .string()
           .nullable()
-          .test('ObjectId', 'Invalid id', (value) => {
+          .test("ObjectId", "Invalid id", (value) => {
             if (!value) return true;
             return ObjectId.isValid(value);
           }),
@@ -51,7 +43,7 @@ class JobValidations {
         id: yup
           .string()
           .required()
-          .test('ObjectId', 'Invalid id', (value) => {
+          .test("ObjectId", "Invalid id", (value) => {
             return ObjectId.isValid(value);
           }),
       }),
@@ -61,24 +53,24 @@ class JobValidations {
   static createJob() {
     return yup.object().shape({
       body: yup.object().shape({
-        title: yup.string().required('Title is required'),
-        description: yup.string().required('Description is required'),
+        title: yup.string().required("Title is required"),
+        description: yup.string().required("Description is required"),
         category: yup
           .string()
-          .required('Category is required')
-          .test('ObjectId', 'Invalid id', (value) => {
+          .required("Category is required")
+          .test("ObjectId", "Invalid id", (value) => {
             return ObjectId.isValid(value);
           }),
         company: yup.string(),
         location: yup
           .object()
           .shape({
-            lat: yup.number().required('Location is required'),
-            lng: yup.number().required('Location is required'),
-            address: yup.string().required('Location is required'),
+            lat: yup.number().required("Location is required"),
+            lng: yup.number().required("Location is required"),
+            address: yup.string().required("Location is required"),
           })
-          .required('Location is required'),
-        budget: yup.string().required('Budget is required'),
+          .required("Location is required"),
+        budget: yup.string().required("Budget is required"),
         images: yup.array().of(yup.mixed()),
       }),
     });
@@ -90,14 +82,14 @@ class JobValidations {
         id: yup
           .string()
           .required()
-          .test('ObjectId', 'Invalid id', (value) => {
+          .test("ObjectId", "Invalid id", (value) => {
             return ObjectId.isValid(value);
           }),
       }),
       body: yup.object().shape({
         title: yup.string(),
         description: yup.string(),
-        category: yup.string().test('ObjectId', 'Invalid id', (value) => {
+        category: yup.string().test("ObjectId", "Invalid id", (value) => {
           if (!value) return true;
           return ObjectId.isValid(value);
         }),
@@ -108,15 +100,15 @@ class JobValidations {
         status: yup
           .string()
           .oneOf([
-            'active',
-            'inactive',
-            'assigned',
-            'completed',
-            'cancelled',
-            'closed',
-            'deleted',
+            "active",
+            "inactive",
+            "assigned",
+            "completed",
+            "cancelled",
+            "closed",
+            "deleted",
           ]),
-        assignedTo: yup.string().test('ObjectId', 'Invalid id', (value) => {
+        assignedTo: yup.string().test("ObjectId", "Invalid id", (value) => {
           if (!value) return true;
           return ObjectId.isValid(value);
         }),
@@ -130,7 +122,7 @@ class JobValidations {
         id: yup
           .string()
           .required()
-          .test('ObjectId', 'Invalid id', (value) => {
+          .test("ObjectId", "Invalid id", (value) => {
             return ObjectId.isValid(value);
           }),
       }),
@@ -143,7 +135,7 @@ class JobValidations {
         id: yup
           .string()
           .required()
-          .test('ObjectId', 'Invalid id', (value) => {
+          .test("ObjectId", "Invalid id", (value) => {
             return ObjectId.isValid(value);
           }),
       }),
@@ -151,9 +143,9 @@ class JobValidations {
         rating: yup
           .number()
           .integer()
-          .min(1, 'Rating must be between 1 and 5')
-          .max(5, 'Rating must be between 1 and 5')
-          .required('Rating is required'),
+          .min(1, "Rating must be between 1 and 5")
+          .max(5, "Rating must be between 1 and 5")
+          .required("Rating is required"),
         comment: yup.string(),
       }),
     });

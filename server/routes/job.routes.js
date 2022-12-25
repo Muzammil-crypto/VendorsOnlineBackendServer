@@ -19,7 +19,6 @@ router.get(
 );
 router.post(
   "/",
-  // [validateRequest(JobValidations.createJob()), requireUser()],
 
   JobController.createJob
 );
