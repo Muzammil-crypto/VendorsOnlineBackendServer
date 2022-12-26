@@ -9,14 +9,12 @@ class ProductValidation {
         limit: yup.number().integer().min(1).nullable(),
         status: yup.string(),
 
-        search: yup.string().nullable(),
-        createdBy: yup
-          .string()
-          .nullable()
-          .test("ObjectId", "Invalid id", (value) => {
-            if (!value) return true;
-            return ObjectId.isValid(value);
-          }),
+        // search: yup.string().nullable(),
+        createdBy: yup.string().nullable(),
+        // .test("ObjectId", "Invalid id", (value) => {
+        //   if (!value) return true;
+        //   return ObjectId.isValid(value);
+        // }),
       }),
     });
   }

@@ -4,7 +4,8 @@ const { all } = require("../routes");
 class productController {
   static async getAllProduct(req, res) {
     try {
-      const allProducts = Product.find();
+      console.log({ params: req.params, query: req.query["shopId"] });
+      const allProducts = Product.find({ shopId: req.params.shopId });
       const prod = await allProducts.exec();
       return res.status(200).json({
         data: prod,

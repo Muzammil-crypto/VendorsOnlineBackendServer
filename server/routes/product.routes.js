@@ -5,10 +5,10 @@ const validateRequest = require("../middlewares/validateRequest");
 
 const router = express.Router();
 
-router.get("/:id", validateRequest(ProductValidation.getProductById()));
+// router.get("/:id", validateRequest(ProductValidation.getProductById()));
 router.get(
-  "/",
-  validateRequest(ProductValidation.getAllProducts()),
+  "/:shopId",
+  // validateRequest(ProductValidation.getAllProducts()),
   productController.getAllProduct
 );
 router.post(

@@ -84,19 +84,6 @@ class JobController {
         .populate("reviews");
       console.log({ job, type: req.params.type });
 
-      // get all reviews of createdBy and put them in an array in createdBy
-      // const createdByReviews = await Review.find({
-      //   reviewedTo: job.createdBy,
-      // });
-
-      // const jobWithReviews = {
-      //   ...job.toJSON(),
-      //   createdBy: {
-      //     ...job.createdBy.toJSON(),
-      //     reviews: createdByReviews,
-      //   },
-      // };
-
       return res.status(200).json({
         data: job,
       });
